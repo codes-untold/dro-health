@@ -1,6 +1,8 @@
+import 'package:dro_health/Bloc/my_bloc.dart';
 import 'package:dro_health/Widgets/cart_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CartScreen extends StatefulWidget {
@@ -78,11 +80,19 @@ class _CartScreenState extends State<CartScreen> {
               flex: 17,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(itemBuilder: (BuildContext context,int i){
-                  return CartWidget();
-                },
-                  shrinkWrap: true,
-                  itemCount: 12,),
+                child:  BlocBuilder<ProductBloc,List<Map<String,dynamic>>>(
+                    bloc: BlocProvider.of<ProductBloc>(context),
+                     builder: (BuildContext context,List<Map<String,dynamic>> state){
+                       return state.isNotEmpty? ListView.builder(itemBuilder: (BuildContext context,int i){
+                         return CartWidget(
+                           index: i,
+                           map: state[i],
+                         );
+                       },
+                         shrinkWrap: true,
+                         itemCount: state.length,):Container();
+                     }
+                ),
               ),
             ),
             Expanded(
@@ -92,42 +102,48 @@ class _CartScreenState extends State<CartScreen> {
                   vertical: 4,
                   horizontal: 24
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                 Row(
-                   children: [
-                     const Text("Total:"),
-                     const  SizedBox(width: 10,),
-                     Image.asset("Images/currency.png",width: 18,height: 18,),
-                     const Text("4500.00",style: TextStyle(
-                         fontWeight: FontWeight.bold
-                     ),),
-                   ],
-                 ),
-                    Container(
-                      width: screenWidth * 0.4,
-                      height: 38,
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          gradient: LinearGradient(
-                              colors:  [Color(0xff7a08fa),Color(0xffad3bfc)]
-                          )
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          FaIcon(FontAwesomeIcons.shoppingCart,color: Colors.white,size: 17,),
-                          SizedBox(width: 3,),
-                          Text("CheckOut",style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold
-                          ),),
+                child: BlocBuilder<ProductBloc,List<Map<String,dynamic>>>(
+                  bloc: BlocProvider.of<ProductBloc>(context),
+                  builder: (BuildContext context,List<Map<String,dynamic>> state){
+                    return state.isNotEmpty?  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Text("Total:"),
+                            const  SizedBox(width: 10,),
+                            Image.asset("Images/currency.png",width: 18,height: 18,),
+                            Text("${totalCalculator(state)}.00",style: const  TextStyle(
+                                fontWeight: FontWeight.bold
+                            ),),
+                          ],
+                        ),
+                        Container(
+                          width: screenWidth * 0.4,
+                          height: 38,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              gradient: LinearGradient(
+                                  colors:  [Color(0xff7a08fa),Color(0xffad3bfc)]
+                              )
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              FaIcon(FontAwesomeIcons.shoppingCart,color: Colors.white,size: 17,),
+                              SizedBox(width: 3,),
+                              Text("CheckOut",style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold
+                              ),),
 
-                        ],
-                      ),
-                    ),
-                  ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ):Container();
+                  },
+
                 ),
               ),
             )
@@ -135,5 +151,13 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
     );
+  }
+
+  int totalCalculator(List<Map<String,dynamic>> list){
+    int total = 0;
+    for(int i = 0; i < list.length; i++){
+      total+=list[i]["productPrice"];
+    }
+    return total;
   }
 }

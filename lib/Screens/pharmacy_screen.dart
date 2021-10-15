@@ -1,3 +1,4 @@
+import 'package:dro_health/Bloc/my_bloc.dart';
 import 'package:dro_health/Screens/cart_screen.dart';
 import 'package:dro_health/Screens/category_screen.dart';
 import 'package:dro_health/Utilities/item_list.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
@@ -253,39 +255,43 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
          ) ],
         ),
       ),
-    floatingActionButton: GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context){
-          return CartScreen();
-        }));
-      },
-      child: Container(
-        width: 130,
-        height: 38,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            gradient: LinearGradient(
-                colors: [Color(0xfffe806f),Color(0xffe5366a)]
-            )
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text("Checkout",style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-            ),),
-            SizedBox(width: 3,),
-            FaIcon(FontAwesomeIcons.shoppingCart,color: Colors.white,size: 17,),
-            SizedBox(width: 2,),
-            CircleAvatar(backgroundColor: Colors.amber,child: Text("1",style: TextStyle(
-              color: Colors.black,
-              fontSize: 8,
-              fontWeight: FontWeight.bold
-            ),),radius: 8,)
-          ],
-        ),
-      ),
+    floatingActionButton:BlocBuilder<ProductBloc,List<Map<String,dynamic>>>(
+      bloc: BlocProvider.of<ProductBloc>(context),
+        builder: (BuildContext context,List<Map<String,dynamic>> state){
+          return   GestureDetector(
+            onTap: (){
+
+            },
+            child: Container(
+              width: 130,
+              height: 38,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  gradient: LinearGradient(
+                      colors: [Color(0xfffe806f),Color(0xffe5366a)]
+                  )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const  Text("Checkout",style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                  ),),
+                  const  SizedBox(width: 3,),
+                  const  FaIcon(FontAwesomeIcons.shoppingCart,color: Colors.white,size: 17,),
+                  const  SizedBox(width: 2,),
+                  CircleAvatar(backgroundColor: Colors.amber,child: Text(state.length.toString(),style:const  TextStyle(
+                      color: Colors.black,
+                      fontSize: 8,
+                      fontWeight: FontWeight.bold
+                  ),),radius: 8,)
+                ],
+              ),
+            ),
+          );
+        }
+
     ),);
   }
 }

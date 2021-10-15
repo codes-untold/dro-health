@@ -1,3 +1,4 @@
+import 'package:dro_health/Bloc/my_bloc.dart';
 import 'package:dro_health/Screens/category_screen.dart';
 import 'package:dro_health/Utilities/item_list.dart';
 import 'package:dro_health/Utilities/product_data.dart';
@@ -7,6 +8,7 @@ import 'package:dro_health/Widgets/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'cart_screen.dart';
@@ -31,12 +33,6 @@ class _ProductInformationState extends State<ProductInformation> {
   int productCount = 1;
   int totalAmount;
 
-  @override
-  void initState() {
-    super.initState();
-
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -259,6 +255,18 @@ class _ProductInformationState extends State<ProductInformation> {
         )),
     floatingActionButton: GestureDetector(
       onTap: (){
+        Map<String,dynamic> map = {
+          "productName": widget.productData.productName,
+          "productCount": productCount,
+          "productPrice": totalAmount ,
+          "ImgUrl": widget.productData.imgPath,
+          "productWeight": widget.productData.productWeight,
+
+        };
+
+        BlocProvider.of<ProductBloc>(context).addProduct(map);
+
+        print( BlocProvider.of<ProductBloc>(context).state);
         showModalBottomSheet(context: context, builder: (ctx){
          return CartBottomSheet(productName: widget.productData.productName,);
         },shape: RoundedRectangleBorder(
