@@ -103,7 +103,7 @@ class _CartScreenState extends State<CartScreen> {
                   horizontal: 24
                 ),
                 child: BlocBuilder<ProductBloc,List<Map<String,dynamic>>>(
-                  bloc: BlocProvider.of<ProductBloc>(context),
+                  bloc: BlocProvider.of<ProductBloc>(context,listen: false),
                   builder: (BuildContext context,List<Map<String,dynamic>> state){
                     return state.isNotEmpty?  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,7 +113,7 @@ class _CartScreenState extends State<CartScreen> {
                             const Text("Total:"),
                             const  SizedBox(width: 10,),
                             Image.asset("Images/currency.png",width: 18,height: 18,),
-                            Text("${totalCalculator(state)}.00",style: const  TextStyle(
+                            Text("${totalCalculator(state)}",style: const  TextStyle(
                                 fontWeight: FontWeight.bold
                             ),),
                           ],
@@ -153,8 +153,8 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  int totalCalculator(List<Map<String,dynamic>> list){
-    int total = 0;
+  double totalCalculator(List<Map<String,dynamic>> list){
+    double total = 0;
     for(int i = 0; i < list.length; i++){
       total+=list[i]["productPrice"];
     }

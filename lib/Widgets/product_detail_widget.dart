@@ -1,5 +1,5 @@
 
-import 'package:dro_health/Widgets/product_widget.dart';
+
 import 'package:flutter/material.dart';
 class DetailWidget extends StatelessWidget {
 

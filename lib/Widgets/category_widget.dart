@@ -41,9 +41,12 @@ class CategoryWidget extends StatelessWidget {
                   width: screenWidth * 0.3,
                   height: screenWidth * 0.18,
                   child: Center(
-                    child: Text(categoryName,style: const TextStyle(
+                    child: Text(
+                      categoryName,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 17,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold
                     ),),
                   ),

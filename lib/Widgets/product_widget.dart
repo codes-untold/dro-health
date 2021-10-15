@@ -31,7 +31,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
-print(widget.totalItems);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child:widget.index + 1 < widget.totalItems?  Row(
@@ -76,8 +76,8 @@ class ProductCard extends StatelessWidget {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context){
+      onTap: ()async{
+         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
           return ProductInformation(productData: productDataList[index],);
         }));
       },

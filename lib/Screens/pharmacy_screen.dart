@@ -255,9 +255,27 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
          ) ],
         ),
       ),
-    floatingActionButton:BlocBuilder<ProductBloc,List<Map<String,dynamic>>>(
+    floatingActionButton:
+
+    BlocConsumer<ProductBloc,List<Map<String,dynamic>>>(
+      buildWhen: (List<Map<String,dynamic>> prev,List<Map<String,dynamic>> current){
+        if(prev.length == current.length){
+          return true;
+        }
+        return true;
+      },
+        listenWhen: (List<Map<String,dynamic>> prev,List<Map<String,dynamic>> current){
+          if(prev.length == current.length){
+            return true;
+          }
+          return true;
+        },
+      listener: (BuildContext context,state){
+
+      },
       bloc: BlocProvider.of<ProductBloc>(context),
         builder: (BuildContext context,List<Map<String,dynamic>> state){
+          print(state);
           return   GestureDetector(
             onTap: (){
 

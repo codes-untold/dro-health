@@ -102,6 +102,7 @@ class _CartWidgetState extends State<CartWidget> {
 
                             };
                                   BlocProvider.of<ProductBloc>(context).updateProduct(widget.index, map);
+                                  Navigator.popAndPushNamed(context, "/CartScreen");
                                 },
                                   itemBuilder: (BuildContext context) => popDownMenuItems ,
                                   icon:  const FaIcon(FontAwesomeIcons.arrowCircleDown,size: 10,color: Color(0xff9f5de2),)
@@ -112,13 +113,19 @@ class _CartWidgetState extends State<CartWidget> {
                         ),
                       ),
                       const SizedBox(height: 10,),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:const [
-                          FaIcon(FontAwesomeIcons.trash,size: 12,color:  Color(0xff9f5de2),),
-                          SizedBox(width: 5,),
-                          Text("Remove",style: TextStyle(color:Color(0xff9f5de2)),)
-                        ],
+                      GestureDetector(
+                        onTap: (){
+                          BlocProvider.of<ProductBloc>(context).deleteProduct(widget.index);
+                          Navigator.popAndPushNamed(context, "/CartScreen");
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:const [
+                            FaIcon(FontAwesomeIcons.trash,size: 12,color:  Color(0xff9f5de2),),
+                            SizedBox(width: 5,),
+                            Text("Remove",style: TextStyle(color:Color(0xff9f5de2)),)
+                          ],
+                        ),
                       )  ],
                   ),],
               ),
