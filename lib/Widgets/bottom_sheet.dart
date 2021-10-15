@@ -14,6 +14,7 @@ class CartBottomSheet extends StatelessWidget {
           Expanded(
               flex: 1,
               child: Center(child: Text("$productName has been successfully added to cart!",
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 17,
 

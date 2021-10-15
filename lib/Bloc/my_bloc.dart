@@ -35,18 +35,18 @@ class ProductBloc extends Bloc<productEvent,List<Map<String,dynamic>>>{
 
   void addProduct(Map<String,dynamic> map){
     _map = map;
-    this.add(productEvent.addition);
+    add(productEvent.addition);
 
   }
 
   void updateProduct(int index,Map<String,dynamic> map){
     _map = map;
     _index = index;
-    this.add(productEvent.update);
+    add(productEvent.update);
   }
 
   void deleteProduct(int index){
     _index = index;
-    this.add(productEvent.deletion);
+    add(productEvent.deletion);
   }
 }

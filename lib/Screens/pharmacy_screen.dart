@@ -1,5 +1,4 @@
 import 'package:dro_health/Bloc/my_bloc.dart';
-import 'package:dro_health/Screens/cart_screen.dart';
 import 'package:dro_health/Screens/category_screen.dart';
 import 'package:dro_health/Utilities/item_list.dart';
 import 'package:dro_health/Utilities/product_data.dart';
@@ -84,6 +83,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                        child: Text("Pharmacy",style: TextStyle(
                          color: Colors.white,
                          fontSize: 20,
+                         fontFamily: "ProximaNova",
                          fontWeight: FontWeight.bold
                        ),),
                      ),
@@ -128,13 +128,6 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                              index: i,totalItems: productDataList.length,));
                          }
 
-
-
-
-
-
-
-
                        });
                      }else{
                        setState(() {
@@ -177,7 +170,8 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                       Text("Lagos, NG",
                        style: TextStyle(
                          fontWeight: FontWeight.w800,
-                         fontSize: 15
+                         fontSize: 15,
+                         fontFamily: "ProximaNova",
                        ),),
                      ],
                    ),
@@ -258,27 +252,13 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
     floatingActionButton:
 
     BlocConsumer<ProductBloc,List<Map<String,dynamic>>>(
-      buildWhen: (List<Map<String,dynamic>> prev,List<Map<String,dynamic>> current){
-        if(prev.length == current.length){
-          return true;
-        }
-        return true;
-      },
-        listenWhen: (List<Map<String,dynamic>> prev,List<Map<String,dynamic>> current){
-          if(prev.length == current.length){
-            return true;
-          }
-          return true;
-        },
       listener: (BuildContext context,state){
 
       },
       bloc: BlocProvider.of<ProductBloc>(context),
         builder: (BuildContext context,List<Map<String,dynamic>> state){
-          print(state);
           return   GestureDetector(
             onTap: (){
-
             },
             child: Container(
               width: 130,
@@ -294,14 +274,16 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                 children: [
                   const  Text("Checkout",style: TextStyle(
                       color: Colors.white,
+                      fontFamily: "ProximaNova",
                       fontWeight: FontWeight.bold
                   ),),
                   const  SizedBox(width: 3,),
                   const  FaIcon(FontAwesomeIcons.shoppingCart,color: Colors.white,size: 17,),
                   const  SizedBox(width: 2,),
-                  CircleAvatar(backgroundColor: Colors.amber,child: Text(state.length.toString(),style:const  TextStyle(
+                  CircleAvatar(backgroundColor: Colors.amber,child: Text(state.length.toString(),
+                    style:const  TextStyle(
                       color: Colors.black,
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold
                   ),),radius: 8,)
                 ],

@@ -48,6 +48,7 @@ class _ProductInformationState extends State<ProductInformation> {
         return true;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Container(
             height: screenHeight,
@@ -68,13 +69,14 @@ class _ProductInformationState extends State<ProductInformation> {
                           Center(child: CircleAvatar(
                             radius: 80,
                               backgroundImage: Image.asset(widget.productData.imgPath,width: screenWidth * 0.4,).image,
-                              //child: Image.asset(productData.imgPath,width: screenWidth * 0.4,)
+
                           )),
                           SizedBox(height: screenHeight * 0.03,),
                            Center(
                            child: Text(widget.productData.productName,style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 17
+                              fontSize: 17,
+                             fontFamily: "ProximaNova",
                             ),),
                          ),
                           SizedBox(height: screenHeight * 0.01,),
@@ -100,7 +102,9 @@ class _ProductInformationState extends State<ProductInformation> {
                                   children: [
                                     CircleAvatar(
                                       radius: 17,
-                                      child: Text((widget.productData.productMerchant.substring(0,1)),style: const TextStyle(
+                                      child: Text((widget.productData.productMerchant.substring(0,1)),
+                                        style: const TextStyle(
+                                        fontFamily: "ProximaNova",
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold
                                       ),),
@@ -240,7 +244,7 @@ class _ProductInformationState extends State<ProductInformation> {
                           ),),
                           const SizedBox(height: 10,),
 
-                          Container(
+                          SizedBox(
                             width: screenWidth,
                             height: screenHeight * 0.3,
                             child: ListView.builder(itemBuilder: (context,i){
@@ -262,21 +266,21 @@ class _ProductInformationState extends State<ProductInformation> {
           )),
       floatingActionButton: GestureDetector(
         onTap: (){
+
           Map<String,dynamic> map = {
             "productName": widget.productData.productName,
             "productCount": productCount,
             "productPrice": totalAmount ,
             "ImgUrl": widget.productData.imgPath,
             "productWeight": widget.productData.productWeight,
-
           };
 
           BlocProvider.of<ProductBloc>(context).addProduct(map);
 
           showModalBottomSheet(context: context, builder: (ctx){
            return CartBottomSheet(productName: widget.productData.productName,);
-          },shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20)
+          },shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
           ));
 
         },
@@ -296,6 +300,7 @@ class _ProductInformationState extends State<ProductInformation> {
               SizedBox(width: 3,),
               Text("Add to Cart",style: TextStyle(
                   color: Colors.white,
+                  fontFamily: "ProximaNova",
                   fontWeight: FontWeight.bold
               ),),
             ],

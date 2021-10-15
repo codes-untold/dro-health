@@ -107,6 +107,7 @@ class ProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:  [
                     Text(productDataList[index].productName,style: const TextStyle(
+                      fontFamily: "ProximaNova",
                    ),),
                    const  SizedBox(height: 2,),
                     Row(

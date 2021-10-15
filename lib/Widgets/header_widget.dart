@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -42,6 +42,7 @@ class HeaderWidget extends StatelessWidget {
                       child: Text(headerText,style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
+                          fontFamily: "ProximaNova",
                           fontWeight: FontWeight.bold
                       ),),
                     ),

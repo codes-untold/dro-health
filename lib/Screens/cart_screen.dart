@@ -58,6 +58,7 @@ class _CartScreenState extends State<CartScreen> {
                                 Text("Cart",style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
+                                    fontFamily: "ProximaNova",
                                     fontWeight: FontWeight.bold
                                 ),),
                               ],

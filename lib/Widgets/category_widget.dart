@@ -47,6 +47,7 @@ class CategoryWidget extends StatelessWidget {
                       style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
+                      fontFamily: "ProximaNova",
                       fontWeight: FontWeight.bold
                     ),),
                   ),
